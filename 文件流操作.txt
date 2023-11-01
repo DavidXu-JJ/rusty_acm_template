@@ -1,0 +1,2 @@
+ifstream in("xxx.xxx"); 
+ofstream out("yyy.yyy"); 

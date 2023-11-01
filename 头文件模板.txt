@@ -1,0 +1,118 @@
+#include<bits/stdc++.h>
+using namespace std;
+using ll=long long;
+#define int ll
+#define ull unsigned long long
+#define pii pair<int,int>
+#define vc vector
+#define vi vector<int>
+#define db double
+#define PI acos(-1.0)
+/* #define ls u<<1 */
+/* #define rs u<<1|1 */
+#define mk make_pair
+#define pb push_back
+#define fi first
+#define se second
+#define forn(i, n) for (int i = 1; i <= n; ++i)
+#define forr(i, n) for (int i = n; i >= 1; --i)
+#define IOFast() ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
+#ifndef ONLINE_JUDGE
+#define dbg(x...) do { cout << "\033[33;1m " << #x << " -> "; err(x); } while (0)
+void err() { cout << "\033[39;0m" << endl; }
+template<template<typename...> class T, typename t, typename... A>
+void err(T<t> a, A... x) { for (auto v: a) cout << v << ' '; err(x...); }
+template<typename T, typename... A>
+void err(T a, A... x) { cout << a << ' '; err(x...); }
+#else
+#define dbg(...)
+#endif
+
+#ifndef ONLINE_JUDGE
+#define fileopen() do{ freopen("in", "r", stdin); freopen("out", "w", stdout);  } while (0)
+#else 
+#define fileopen()
+#endif
+
+/*
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+oooooooooooooooooooooooooooooooooooooooooo[......,ooooooooooooooooooooooooooooooooooooooo
+oooooooooooooooooooooooooooooooooooooooo/.,@@@@@@`.,ooooo[[[\oooooooooooooooooooooooooooo
+ooooooooooooooooooooooooooooooooooooooo`./@@OOOOO@@..[...,]]...oooooooooooooooooooooooooo
+oooooooooooooooooooooooooooooooooooooo^.=@@OOOOOOO@@.,@@@@@@@@\.,oooooooooooooooooooooooo
+oooooooooooooooooooooooooooooooooooooo^.=@@OOOOOOO@@=@@OOOOOO@@^.=ooooooooooooooooooooooo
+ooooooooooooooooooo[[[[[\oooooooooooooo..\@@OOOOO@@@@@OOOOOOO@@^.=ooooooooooooooooooooooo
+oooooooooooooo/....,]]]]`...,oooooooooo`.,@@@@@@@^..,@@OOOO@@@`.=oooooooooooooooooooooooo
+ooooooooooo/..,@@@@@@@@@@@@@\..\ooooo`.=@@OOOOO@@^.,/@@@@@@[../oooooooooooooooooooooooooo
+ooooooooo/.,@@@@@@/[`..[[@@@@@@`.\oo/..@@OOOOOOO@@@@@OOOO@@\.,ooooooooooooooooooooooooooo
+ooooooo/.,@@@@@`............\@@@@`.\o..@@OOOOOO@@@@@OOOOOO@@^.=oooooo[[....,[\ooooooooooo
+oooooo../@@@/.................\@@@^.,o`.\@@@@@@`@@[@@@OOO@@@../O/....]]/@@@\]`..,\ooooooo
+oooo/.,@@@@`...................=@@@^.,oo`......=@/...[[@[[../o`.,/@@@@@@@@@@@@@@\..[ooooo
+ooo^.,@@@/......................=@@@`..........@@^.,o]`..]/o`./@@@@@@[`.....[\@@@@@`.,ooo
+ooo..@@@@........................@@@@@@@@@@@@@@@@]].......`./@@@@[..............\@@@@`.\o
+oo^.=@@@^........................,@@@@@@@@@@@@@@@@@@@@@@@@]/@@@/..................\@@@\.,
+oo\.,@@@^..........]@@@/[`.......................,[[@@@@@@@@@@^........... ........=@@@\.
+ooo`.\@@@`.....,@@@/......................................,[@`........... ..........=@@@^
+oooo`.\@@@\../@@@`..............................................   .       .    .....\@@@
+ooooo\.,@@@@@@@`.=@@@@@\]`......................................                .....=@@@
+ooooooo`.,@@@/......[[@@@@@@@@@]`... ...........................                ...../@@@
+ooooooo..@@@^............,]@@@@@@^............,]]]]]@@@@@@@@@@@^.              .....=@@@^
+oooooo../@@/........,]@@@@@@/[.... ... ......,@@@@@@@@@[[[[[..... .... ............/@@@/.
+ooooo^.,@@@`..../@@@@@@[........         ......,@@@\`............ .............../@@@@`.=
+ooooo`.=@@@....=@@[.... ......           ........,\@@@@`......... ...........,/@@@@@`.,oo
+ooooo..@@@@............ ........            .. ......\@@@@\.............,]@@@@@@@/..]oooo
+ooooo..\@@@......... .............. .............     ..,@@@@`...../@@@@@@@@@/`..,ooooooo
+ooooo^.,@@@^................,@@/...... ....,]....       ...[[.....=@@@@/[`....]oooooooooo
+oooooo^.=@@@@`..............=@@....]]......=@@..        ........../@@@..]/ooooooooooooooo
+ooooooo\..@@@@@\.............\@@@@@@@@\]]]/@@`...      ....... ...@@@@..ooooooooooooooooo
+ooooooooo\..\@@@@@\`.....  . ...,[[..,[@@@@`....          ...  ...@@@^.,ooooooooooooooooo
+oooooooooooo`..\@@@@....       .............  ..                .,@@@^.=ooooooooooooooooo
+oooooooooooooo..@@@/....        ...... .....                    .=@@@^.=ooooooooooooooooo
+ooooooooooooo^.=@@@^....        . ... .......  .                .=@@@..oooooooooooooooooo
+ooooooooooooo../@@@.....               .                       ..@@@@..oooooooooooooooooo
+ooooooooooooo..@@@^.....                                        .@@@/..oooooooooooooooooo
+oooooooooooo^.=@@@`. . .                                        .@@@^.=oooooooooooooooooo
+oooooooooooo..=@@@......                                        .@@@^.=oooooooooooooooooo
+oooooooooooo..@@@^......                                       ..@@@^.=oooooooooooooooooo
+ooooooooooo/..@@@^...  .                                       .=@@@^.=oooooooooooooooooo
+ooooooooooo^.=@@@^... ..                                       .=@@@^.=oooooooooooooooooo
+ooooooooooo^.=@@@^......                                       .=@@@..=oooooooooooooooooo
+ooooooooooo^.=@@@^......                                       .=@@@../oooooooooooooooooo
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+#define int ll
+#define ull unsigned long long
+#define pii pair<int,int>
+#define vc vector
+#define vi vector<int>
+#define db double
+#define PI acos(-1.0)
+#define ls u<<1
+#define rs u<<1|1
+#define mk make_pair
+#define fi first
+#define se second
+#define forn(i, n) for (int i = 1; i <= n; ++i)
+	#define forr(i, n) for (int i = n; i >= 1; --i)
+	#define IOFast() ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
+#ifndef ONLINE_JUDGE
+#define dbg(x...) do { cout << "\033[33;1m " << #x << " -> "; err(x); } while (0)
+	void err() { cout << "\033[39;0m" << endl; }
+template<template<typename...> class T, typename t, typename... A>
+void err(T<t> a, A... x) { for (auto v: a) cout << v << ' '; err(x...); }
+	template<typename T, typename... A>
+	
+	void err(T a, A... x) { cout << a << ' '; err(x...); }
+	#else
+	#define dbg(...)
+	#endif
+
+	
+	signed main(signed argc, char *argv[]) {
+		
+	}

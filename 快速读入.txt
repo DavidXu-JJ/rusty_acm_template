@@ -1,0 +1,135 @@
+namespace FastIO{
+    class Scanner{
+        char cht;
+        bool ifNegative;
+        char stringBuf[10000];
+#ifndef EnableCompatibility
+#define BUF_SIZE 524288
+        char nc(){
+            static char buf[BUF_SIZE],*p1=buf+BUF_SIZE,*pend=buf+BUF_SIZE;
+            if(p1==pend){
+                p1=buf;
+                pend=buf+fread(buf,1,BUF_SIZE,stdin);
+                if(pend==p1)
+				    return ' ';
+            }
+#ifndef DisableNegative
+            if(*p1=='-'){
+                ifNegative=true;
+                p1++;
+                return nc();
+            }
+#endif
+            return *p1++;
+        }
+#else
+        inline char nc(){
+            return getchar();
+        }
+#endif
+        inline bool blank(char ch){
+            return ch=='\r'||ch=='\n'||ch==' '||ch=='\t';
+        }
+    public:
+        Scanner operator>>(int&x){
+#ifndef DisableNegative
+            ifNegative=false;
+#endif
+            while(blank(cht=nc()));
+            for(x=cht-'0';(cht=nc())>='0'&&cht<='9';x=x*10+cht-'0');
+#ifndef DisableNegative
+            if(ifNegative)
+			    x*=-1;
+#endif
+            return *this;
+        }
+        Scanner operator>>(long long int&x){
+#ifndef DisableNegative
+            ifNegative=false;
+#endif
+            while(blank(cht=nc()));
+            for(x=cht-'0';(cht=nc())>='0'&&cht<='9';x=x*10+cht-'0');
+#ifndef DisableNegative
+            if(ifNegative)
+			    x*=-1;
+#endif
+            return *this;
+        }
+        Scanner operator>>(string&str){
+            int p=0;
+            while(blank(cht=nc()));
+            for(stringBuf[p++]=cht;!blank(cht=nc());stringBuf[p++]=cht);
+            stringBuf[p]='\0';
+            str=stringBuf;
+            return *this;
+        }
+        Scanner operator>>(char str[]){
+            int p=0;
+            while(blank(cht=nc()));
+            for(str[p++]=cht;!blank(cht=nc());str[p++]=cht);
+            str[p]='\0';
+            return *this;
+        }
+        template<typename F>
+        inline Scanner operator>>(F&f){
+            cin>>f;
+            return *this;
+        }
+    };
+    class Printer{
+        int num;
+        char chr[21];
+    public:
+        Printer operator<<(int x){
+            if(x==0){
+                putchar('0');
+                return *this;
+            }
+            if(x<0)
+			    x*=-1,putchar('-');
+            num=0;
+            while(x) 
+			    chr[++num]=(x%10)+48,x/=10;
+            while(num) 
+			    putchar(chr[num--]);
+            return *this;
+        }
+        Printer operator<<(long long int x){
+            if(x==0){
+                putchar('0');
+                return *this;
+            }
+            if(x<0)
+			    x*=-1,putchar('-');
+            num=0;
+            while(x) 
+			    chr[++num]=(x%10)+48,x/=10;
+            while(num) 
+			    putchar(chr[num--]);
+            return *this;
+        }
+        inline Printer operator<<(char x){
+            putchar(x);
+            return *this;
+        }
+        Printer operator<<(const char str[]){
+            int p=0;
+            while(str[p]!='\0')
+                putchar(str[p++]);
+            return *this;
+        }
+        inline Printer operator<<(string&x){
+            for(string::iterator i=x.begin();i<x.end();i++)
+			    putchar(*i);
+            return *this;
+        }
+        template<typename F>
+        inline Printer operator<<(F&f){
+            cout<<f;
+            return *this;
+        }
+    };
+    Scanner qin;
+    Printer qout;
+#define endl '\n'
+}

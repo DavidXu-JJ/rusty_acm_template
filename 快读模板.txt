@@ -1,0 +1,44 @@
+#define IOFast() ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
+
+inline int read()
+{
+	int x=0,f=1;char ch=getchar();
+	while (!isdigit(ch)){if (ch=='-') f=-1;ch=getchar();}
+	while (isdigit(ch)){x=x*10+ch-48;ch=getchar();}
+	return x*f;
+}
+
+template <class T>
+void read(T &x) {
+	static char ch;static bool neg;
+	for(ch=neg=0;ch<'0' || '9'<ch;neg|=ch=='-',ch=getchar());
+	for(x=0;'0'<=ch && ch<='9';(x*=10)+=ch-'0',ch=getchar());
+	x=neg?-x:x;
+}
+
+inline char cread()
+{
+    char c;
+    do{
+        c=getchar();
+    }while(c==' '||c=='\n');
+    return c;
+}
+
+//手动O2优化
+#pragma GCC optimize (2)
+#pragma G++ optimize (2)
+
+-----------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int a = 12;
+    printf("八进制 --> %o\n", a);
+    printf("十六进制 --> %X\n", a);
+    printf("十进制 --> %d\n", a);
+    char s[10];
+}

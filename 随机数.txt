@@ -1,0 +1,57 @@
+一、rand()随机数
+范围：0~32767
+#include <iostream>
+#include <ctime>
+using namespace std;
+int main()
+{
+	srand(unsigned(time(0)));
+	int count = rand() % 3 + 1;    //范围1~3
+	int count1 = rand() % 3;    //范围0~2
+	cout << count << endl << count1 << endl;
+	return 0;
+}
+
+
+二、mt19937随机数
+范围：无限制，但是可以自己设定。
+C++(无范围)
+#include <iostream>
+#include <chrono>
+#include <random>
+using namespace std;
+int main()
+{
+    // 随机数种子
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    mt19937 rand_num(seed);	 // 大随机数
+	cout << rand_num() << endl;
+	return 0;
+}
+
+C++(手动加上范围)
+#include <iostream>
+#include <chrono>
+#include <random>
+using namespace std;
+int main()
+{
+	// 随机数种子
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	mt19937 rand_num(seed);  // 大随机数
+	uniform_int_distribution<long long> dist(0, 1000000000);  // 给定范围
+	cout << dist(rand_num) << endl;
+	return 0;
+}
+
+
+三、[0,x-1]
+mt19937 mrand(random_device{}());int rnd(int x) { return mrand() % x;}
+
+
+ll rand_int(ll l, ll r) //[l, r]
+{
+	static mt19937_64 gen(chrono::steady_clock::now().time_since_epoch().count());
+	return uniform_int_distribution<ll>(l, r)(gen);
+}
+
